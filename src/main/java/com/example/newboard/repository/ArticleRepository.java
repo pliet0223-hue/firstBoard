@@ -16,5 +16,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     long deleteByIdAndAuthor_Email(Long id, String email);
 }
 
+
+
 // CRUD
 // findAll()
