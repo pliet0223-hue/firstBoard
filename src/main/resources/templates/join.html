@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+          font-family: 'Segoe UI', sans-serif;
+          background-color: #f4f4f4;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+        }
+        .signup-container {
+          background: white;
+          padding: 2rem;
+          border-radius: 10px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+          width: 100%;
+          max-width: 400px;
+        }
+        h1 {
+          text-align: center;
+          margin-bottom: 1.5rem;
+          color: #0078D4;
+        }
+        label {
+          display: block;
+          margin-bottom: 1rem;
+          font-weight: bold;
+        }
+        input {
+          width: 100%;
+          padding: 0.5rem;
+          margin-top: 0.3rem;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+        }
+        button {
+          width: 100%;
+          padding: 0.7rem;
+          background-color: #0078D4;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          font-size: 1rem;
+          cursor: pointer;
+          margin-top: 1rem;
+        }
+        button:hover {
+          background-color: #005a9e;
+        }
+        .social-login {
+          text-align: center;
+          margin-top: 1.5rem;
+        }
+        .social-login a {
+          color: #DB4437;
+          text-decoration: none;
+          font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="signup-container">
+    <h1>회원가입</h1>
+    <form method="post" action="/api/users/register">
+        <label>이메일
+            <input type="email" name="email" required>
+        </label>
+        <label>이름
+            <input type="text" name="nickname" required>
+        </label>
+        <label>비밀번호
+            <input type="password" name="password" required>
+        </label>
+        <button type="submit">가입</button>
+    </form>
+
+    <div class="social-login">
+        <p>또는</p>
+        <a href="/oauth2/authorization/google">🔗 구글로 로그인</a>
+    </div>
+</div>
+
+</body>
+</html>

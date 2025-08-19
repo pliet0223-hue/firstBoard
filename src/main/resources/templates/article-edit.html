@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글 수정</title>
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+    <style>
+        body {
+          font-family: 'Segoe UI', sans-serif;
+          background-color: #f4f4f4;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+        }
+        .form-container {
+          background: white;
+          padding: 2rem;
+          border-radius: 10px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+          width: 100%;
+          max-width: 600px;
+        }
+        h1 {
+          text-align: center;
+          margin-bottom: 2rem;
+          color: #0078D4;
+        }
+        label {
+          display: block;
+          margin-bottom: 1rem;
+          font-weight: bold;
+        }
+        input[type="text"],
+        textarea {
+          width: 100%;
+          padding: 0.7rem;
+          margin-top: 0.3rem;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          font-size: 1rem;
+        }
+        textarea {
+          resize: vertical;
+        }
+        .actions {
+          margin-top: 1.5rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        button {
+          background-color: #0078D4;
+          color: white;
+          border: none;
+          padding: 0.7rem 1.2rem;
+          border-radius: 4px;
+          font-size: 1rem;
+          cursor: pointer;
+        }
+        button:hover {
+          background-color: #005a9e;
+        }
+        a {
+          text-decoration: none;
+          color: #0078D4;
+          font-weight: bold;
+          margin-left: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h1>글 수정</h1>
+    <form th:action="@{'/articles/' + ${article.id} + '/edit'}" method="post">
+        <input type="hidden" id="article-id" th:value="${article} != null ? ${article.id} : ''"/>
+
+        <label for="title">제목</label>
+        <input type="text" id="title" name="title" th:value="${article.title}" required>
+
+        <label for="content">내용</label>
+        <textarea id="content" name="content" rows="8" required th:text="${article.content}"></textarea>
+
+        <div class="actions">
+            <button type="button" id="modify-btn">저장</button>
+            <div>
+                <a th:href="@{'/articles/' + ${article.id}}">취소</a>
+                <a href="/articles">목록</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="/js/article.js" defer></script>
+</body>
+</html>
