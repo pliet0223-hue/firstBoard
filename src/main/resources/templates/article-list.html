@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시글 목록</title>
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+          font-family: 'Noto Sans KR', sans-serif;
+          background-color: #f4f6f8;
+          margin: 0;
+          padding: 0;
+        }
+        header {
+          background-color: #2c3e50;
+          color: white;
+          padding: 1rem 2rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .brand {
+          font-size: 1.5rem;
+          font-weight: bold;
+          text-decoration: none;
+          color: #ecf0f1;
+        }
+        header a {
+          color: #ecf0f1;
+          margin-left: 1rem;
+          text-decoration: none;
+        }
+        main {
+          max-width: 800px;
+          margin: 2rem auto;
+          padding: 2rem;
+          background-color: white;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+        h1 {
+          font-size: 2rem;
+          margin-bottom: 1.5rem;
+          color: #2c3e50;
+          text-align: center;
+        }
+        .new-article {
+          text-align: right;
+          margin-bottom: 1rem;
+        }
+        .new-article a {
+          background-color: #27ae60;
+          color: white;
+          padding: 0.5rem 1rem;
+          border-radius: 4px;
+          text-decoration: none;
+          font-size: 0.95rem;
+        }
+        .new-article a:hover {
+          background-color: #219150;
+        }
+        .article-list {
+          list-style: none;
+          padding: 0;
+        }
+        .article-list li {
+          background-color: #ecf0f1;
+          margin-bottom: 0.75rem;
+          padding: 1rem;
+          border-radius: 6px;
+          transition: background-color 0.3s ease;
+        }
+        .article-list li:hover {
+          background-color: #d0d7de;
+        }
+        .article-list a {
+          text-decoration: none;
+          color: #2c3e50;
+          font-weight: bold;
+          font-size: 1.1rem;
+        }
+        .empty-message {
+          text-align: center;
+          color: #7f8c8d;
+          font-style: italic;
+          margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <a href="/" class="brand">📚 BoardHub</a>
+    <div>
+      <span sec:authorize="isAnonymous()">
+        <a href="/login">로그인</a>
+        <a href="/join">회원가입</a>
+      </span>
+        <span sec:authorize="isAuthenticated()">
+        <span>안녕하세요, <strong th:text="${displayName}"></strong>님!</span>
+        <form method="post" action="/logout" style="display:inline;">
+          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+          <button type="submit">로그아웃</button>
+        </form>
+      </span>
+    </div>
+</header>
+
+<main>
+    <h1>📄 게시글 목록</h1>
+
+    <div class="new-article" sec:authorize="isAuthenticated()">
+        <a href="/articles/new">+ 새 글 작성</a>
+    </div>
+
+    <div class="empty-message" th:if="${#lists.isEmpty(articles)}">아직 작성된 글이 없습니다.</div>
+
+    <ul class="article-list" th:unless="${#lists.isEmpty(articles)}">
+        <li th:each="a : ${articles}">
+            <a th:href="@{'/articles/' + ${a.id}}" th:text="${a.title}">제목</a>
+        </li>
+    </ul>
+</main>
+</body>
+</html>

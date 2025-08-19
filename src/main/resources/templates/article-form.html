@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>새 글 작성</title>
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+          font-family: 'Noto Sans KR', sans-serif;
+          background-color: #f4f6f8;
+          margin: 0;
+          padding: 0;
+        }
+        main {
+          max-width: 700px;
+          margin: 3rem auto;
+          background-color: white;
+          padding: 2rem;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+        h1 {
+          font-size: 1.8rem;
+          margin-bottom: 2rem;
+          color: #2c3e50;
+          text-align: center;
+        }
+        label {
+          display: block;
+          margin-bottom: 1rem;
+          font-weight: bold;
+          color: #34495e;
+        }
+        input[type="text"],
+        textarea {
+          width: 100%;
+          padding: 0.75rem;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          font-size: 1rem;
+          margin-top: 0.5rem;
+          box-sizing: border-box;
+        }
+        textarea {
+          resize: vertical;
+        }
+        .form-actions {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 2rem;
+        }
+        .form-actions a,
+        .form-actions button {
+          background-color: #2ecc71;
+          color: white;
+          border: none;
+          padding: 0.6rem 1.2rem;
+          border-radius: 4px;
+          text-decoration: none;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+        .form-actions a:hover,
+        .form-actions button:hover {
+          background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+<main>
+    <h1>📝 새 글 작성하기</h1>
+    <form method="post" action="/articles">
+        <input type="hidden" id="article-id" th:value="${article != null ? article.id : ''}"/>
+
+        <label for="title">제목</label>
+        <input type="text" id="title" name="title" required>
+
+        <label for="content">내용</label>
+        <textarea id="content" name="content" rows="10" required></textarea>
+
+        <div class="form-actions">
+            <button type="submit" id="create-btn">💾 저장</button>
+            <a href="/articles">📚 목록</a>
+        </div>
+    </form>
+</main>
+<script src="/js/article.js" defer></script>
+</body>
+</html>
