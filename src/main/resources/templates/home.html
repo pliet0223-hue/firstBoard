@@ -4,72 +4,116 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>홈</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
-          font-family: 'Segoe UI', sans-serif;
+          font-family: 'Inter', sans-serif;
           margin: 0;
           padding: 0;
-          background-color: #f9f9f9;
+          background: linear-gradient(135deg, #e0c3fc, #8ec5fc);
+          color: #333;
+          animation: fadeIn 1s ease-in;
         }
+
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
         header {
-          background-color: #0078D4;
+          background-color: #6a11cb;
+          background-image: linear-gradient(to right, #6a11cb, #2575fc);
           color: white;
           padding: 1rem 2rem;
           display: flex;
           align-items: center;
           justify-content: space-between;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
+
         .brand {
-          font-size: 1.5rem;
+          font-size: 1.6rem;
           font-weight: bold;
           text-decoration: none;
           color: white;
         }
+
         main {
-          padding: 2rem;
+          padding: 3rem 1rem;
           text-align: center;
         }
+
+        h1 {
+          font-size: 2rem;
+          margin-bottom: 1rem;
+          color: #333;
+        }
+
+        p {
+          font-size: 1.1rem;
+          margin-bottom: 2rem;
+        }
+
         a {
           text-decoration: none;
-          color: #0078D4;
+          color: #2575fc;
+          font-weight: 600;
           margin: 0 0.5rem;
+          transition: color 0.3s ease;
         }
+
+        a:hover {
+          color: #6a11cb;
+        }
+
         button {
           background-color: #e81123;
           color: white;
           border: none;
-          padding: 0.5rem 1rem;
-          border-radius: 4px;
+          padding: 0.6rem 1.2rem;
+          border-radius: 6px;
+          font-size: 1rem;
           cursor: pointer;
+          transition: background-color 0.3s ease;
         }
+
         button:hover {
           background-color: #c50f1f;
+        }
+
+        .auth-links {
+          margin-top: 1.5rem;
+        }
+
+        form {
+          display: inline;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <a href="/" class="brand">🌀 임시로고</a>
+    <a href="/" class="brand">🌐 MyBrand</a>
 </header>
 
 <main>
-    <h1>메인 페이지에 오신 걸 환영합니다!</h1>
+    <h1>🎉 메인 페이지에 오신 걸 환영합니다!</h1>
+    <p>이곳에서 다양한 글을 탐색하고, 커뮤니티에 참여해보세요.</p>
 
     <p>
         <a href="/articles">📄 글 목록 보기</a>
     </p>
 
-    <div>
+    <div class="auth-links">
     <span sec:authorize="isAnonymous()">
       <a href="/login">🔐 로그인</a>
       <a href="/join">📝 회원가입</a>
     </span>
 
         <span sec:authorize="isAuthenticated()">
-      <form method="post" action="/logout" style="display:inline;">
+      <form method="post" action="/logout">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-        <button type="submit">로그아웃</button>
+        <button type="submit">🚪 로그아웃</button>
       </form>
     </span>
     </div>

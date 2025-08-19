@@ -4,89 +4,159 @@
     <meta charset="UTF-8">
     <title>회원가입</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
-          font-family: 'Segoe UI', sans-serif;
-          background-color: #f4f4f4;
+          font-family: 'Inter', sans-serif;
+          background: linear-gradient(135deg, #ffecd2, #fcb69f);
           margin: 0;
           padding: 0;
           display: flex;
           justify-content: center;
           align-items: center;
-          height: 100vh;
+          min-height: 100vh;
+          animation: fadeIn 1s ease-in;
         }
+
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
         .signup-container {
           background: white;
-          padding: 2rem;
-          border-radius: 10px;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+          padding: 2.5rem;
+          border-radius: 12px;
+          box-shadow: 0 8px 20px rgba(0,0,0,0.15);
           width: 100%;
-          max-width: 400px;
+          max-width: 420px;
+          animation: fadeIn 1s ease-in;
         }
+
         h1 {
           text-align: center;
-          margin-bottom: 1.5rem;
-          color: #0078D4;
+          margin-bottom: 2rem;
+          color: #ff6f61;
+          font-size: 1.8rem;
         }
+
         label {
           display: block;
-          margin-bottom: 1rem;
-          font-weight: bold;
+          margin-bottom: 1.2rem;
+          font-weight: 600;
+          color: #333;
         }
+
         input {
           width: 100%;
-          padding: 0.5rem;
-          margin-top: 0.3rem;
+          padding: 0.65rem;
+          margin-top: 0.4rem;
           border: 1px solid #ccc;
-          border-radius: 4px;
+          border-radius: 6px;
+          font-size: 1rem;
+          transition: border-color 0.3s ease;
         }
+
+        input:focus {
+          border-color: #ff6f61;
+          outline: none;
+        }
+
         button {
           width: 100%;
-          padding: 0.7rem;
-          background-color: #0078D4;
+          padding: 0.8rem;
+          background: linear-gradient(to right, #ff6f61, #de4463);
           color: white;
           border: none;
-          border-radius: 4px;
+          border-radius: 6px;
           font-size: 1rem;
+          font-weight: 600;
           cursor: pointer;
-          margin-top: 1rem;
+          margin-top: 1.5rem;
+          box-shadow: 0 0 10px rgba(255, 111, 97, 0.4);
+          transition: background 0.3s ease, box-shadow 0.3s ease;
         }
+
         button:hover {
-          background-color: #005a9e;
+          background: linear-gradient(to right, #e85a50, #c13b52);
+          box-shadow: 0 0 15px rgba(255, 111, 97, 0.6);
         }
+
         .social-login {
           text-align: center;
-          margin-top: 1.5rem;
+          margin-top: 2rem;
         }
+
         .social-login a {
-          color: #DB4437;
+          display: inline-block;
+          background-color: #DB4437;
+          color: white;
+          padding: 0.6rem 1.2rem;
+          border-radius: 6px;
           text-decoration: none;
-          font-weight: bold;
+          font-weight: 600;
+          transition: background-color 0.3s ease;
+        }
+
+        .social-login a:hover {
+          background-color: #c23321;
+        }
+
+        .social-login p {
+          margin-bottom: 0.8rem;
+          color: #555;
+        }
+
+        .input-group {
+          position: relative;
+        }
+
+        .toggle-password {
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          cursor: pointer;
+          color: #888;
         }
     </style>
 </head>
 <body>
 
 <div class="signup-container">
-    <h1>회원가입</h1>
+    <h1>📝 회원가입</h1>
     <form method="post" action="/api/users/register">
-        <label>이메일
-            <input type="email" name="email" required>
-        </label>
-        <label>이름
-            <input type="text" name="nickname" required>
-        </label>
-        <label>비밀번호
-            <input type="password" name="password" required>
-        </label>
-        <button type="submit">가입</button>
+        <label for="email">📧 이메일</label>
+        <div class="input-group">
+            <input type="email" name="email" id="email" required>
+        </div>
+
+        <label for="nickname">🙋 이름</label>
+        <div class="input-group">
+            <input type="text" name="nickname" id="nickname" required>
+        </div>
+
+        <label for="password">🔒 비밀번호</label>
+        <div class="input-group">
+            <input type="password" name="password" id="password" required>
+            <span class="toggle-password" onclick="togglePassword()">👁️</span>
+        </div>
+
+        <button type="submit">가입하기</button>
     </form>
 
     <div class="social-login">
-        <p>또는</p>
-        <a href="/oauth2/authorization/google">🔗 구글로 로그인</a>
+        <p>또는 소셜 계정으로 가입</p>
+        <a href="/oauth2/authorization/google">🔗 Google로 가입</a>
     </div>
 </div>
+
+<script>
+    function togglePassword() {
+      const pw = document.getElementById("password");
+      pw.type = pw.type === "password" ? "text" : "password";
+    }
+</script>
 
 </body>
 </html>

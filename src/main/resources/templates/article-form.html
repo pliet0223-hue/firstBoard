@@ -2,92 +2,128 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>새 글 작성</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="_csrf" th:content="${_csrf.token}">
     <meta name="_csrf_header" th:content="${_csrf.headerName}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
-          font-family: 'Segoe UI', sans-serif;
-          background-color: #f4f4f4;
+          font-family: 'Inter', sans-serif;
+          background: linear-gradient(135deg, #c3cfe2, #f5f7fa);
           margin: 0;
           padding: 0;
           display: flex;
           justify-content: center;
           align-items: center;
           min-height: 100vh;
+          animation: fadeIn 0.8s ease-in;
         }
+
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
         .form-container {
           background: white;
-          padding: 2rem;
-          border-radius: 10px;
-          box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+          padding: 2.5rem;
+          border-radius: 12px;
+          box-shadow: 0 8px 20px rgba(0,0,0,0.1);
           width: 100%;
-          max-width: 600px;
+          max-width: 640px;
+          animation: fadeIn 1s ease-in;
         }
+
         h1 {
           text-align: center;
           margin-bottom: 2rem;
-          color: #0078D4;
+          color: #4b6cb7;
+          font-size: 1.8rem;
         }
+
         label {
           display: block;
           margin-bottom: 1rem;
-          font-weight: bold;
+          font-weight: 600;
+          color: #333;
         }
+
         input[type="text"],
         textarea {
           width: 100%;
-          padding: 0.7rem;
-          margin-top: 0.3rem;
+          padding: 0.75rem;
+          margin-top: 0.4rem;
           border: 1px solid #ccc;
-          border-radius: 4px;
+          border-radius: 6px;
           font-size: 1rem;
+          transition: border-color 0.3s ease;
         }
+
+        input:focus,
+        textarea:focus {
+          border-color: #4b6cb7;
+          outline: none;
+        }
+
         textarea {
           resize: vertical;
+          min-height: 160px;
         }
+
         .actions {
-          margin-top: 1.5rem;
+          margin-top: 2rem;
           display: flex;
           justify-content: space-between;
           align-items: center;
         }
+
         button {
-          background-color: #0078D4;
+          background: linear-gradient(to right, #4b6cb7, #182848);
           color: white;
           border: none;
-          padding: 0.7rem 1.2rem;
-          border-radius: 4px;
+          padding: 0.8rem 1.4rem;
+          border-radius: 6px;
           font-size: 1rem;
+          font-weight: 600;
           cursor: pointer;
+          box-shadow: 0 0 10px rgba(75, 108, 183, 0.3);
+          transition: background 0.3s ease, box-shadow 0.3s ease;
         }
+
         button:hover {
-          background-color: #005a9e;
+          background: linear-gradient(to right, #3a539b, #1c2b4f);
+          box-shadow: 0 0 15px rgba(75, 108, 183, 0.5);
         }
+
         a {
           text-decoration: none;
-          color: #0078D4;
-          font-weight: bold;
+          color: #4b6cb7;
+          font-weight: 600;
+          transition: color 0.3s ease;
+        }
+
+        a:hover {
+          color: #182848;
         }
     </style>
 </head>
 <body>
 
 <div class="form-container">
-    <h1>새 글 작성</h1>
+    <h1>📝 새 글 작성</h1>
     <form method="post" action="/articles">
         <input type="hidden" id="article-id" th:value="${article} != null ? ${article.id} : ''"/>
 
-        <label for="title">제목</label>
+        <label for="title">📌 제목</label>
         <input type="text" id="title" name="title" required>
 
-        <label for="content">내용</label>
-        <textarea id="content" name="content" rows="8" required></textarea>
+        <label for="content">🖋️ 내용</label>
+        <textarea id="content" name="content" required></textarea>
 
         <div class="actions">
-            <button type="button" id="create-btn">저장</button>
-            <a href="/articles">← 목록으로</a>
+            <button type="submit" id="create-btn">저장하기</button>
+            <a href="/articles">← 목록으로 돌아가기</a>
         </div>
     </form>
 </div>
