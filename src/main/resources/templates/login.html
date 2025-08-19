@@ -75,11 +75,13 @@
           font-weight: 600;
           cursor: pointer;
           margin-top: 1.5rem;
-          transition: background 0.3s ease;
+          box-shadow: 0 0 10px rgba(75, 108, 183, 0.3);
+          transition: background 0.3s ease, box-shadow 0.3s ease;
         }
 
         button:hover {
           background: linear-gradient(to right, #3a539b, #1c2b4f);
+          box-shadow: 0 0 15px rgba(75, 108, 183, 0.5);
         }
 
         .social-login {
@@ -106,20 +108,49 @@
           margin-bottom: 0.8rem;
           color: #555;
         }
+
+        .toggle-password {
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+          cursor: pointer;
+          color: #888;
+        }
+
+        .input-group {
+          position: relative;
+        }
+
+        .error-message {
+          color: red;
+          text-align: center;
+          margin-bottom: 1rem;
+        }
     </style>
 </head>
 <body>
 
 <div class="login-container">
     <h1>🔐 로그인</h1>
-    <form method="post" action="/login">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+    <div th:if="${param.error}" class="error-message">
+        이메일 또는 비밀번호가 올바르지 않습니다.
+    </div>
+
+    <form th:action="@{/login}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
         <label for="username">📧 이메일</label>
-        <input type="email" name="username" id="username" required>
+        <div class="input-group">
+            <input type="email" name="username" id="username" required autocomplete="off">
+        </div>
 
         <label for="password">🔒 비밀번호</label>
-        <input type="password" name="password" id="password" required>
+        <div class="input-group">
+            <input type="password" name="password" id="password" required autocomplete="off">
+            <span class="toggle-password" onclick="togglePassword()">👁️</span>
+        </div>
 
         <button type="submit">로그인</button>
     </form>
@@ -129,6 +160,13 @@
         <a href="/oauth2/authorization/google">🔗 Google 로그인</a>
     </div>
 </div>
+
+<script>
+    function togglePassword() {
+      const pw = document.getElementById("password");
+      pw.type = pw.type === "password" ? "text" : "password";
+    }
+</script>
 
 </body>
 </html>

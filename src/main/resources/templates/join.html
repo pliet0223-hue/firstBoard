@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
@@ -119,26 +121,39 @@
           cursor: pointer;
           color: #888;
         }
+
+        .error-message {
+          color: red;
+          text-align: center;
+          margin-bottom: 1rem;
+        }
     </style>
 </head>
 <body>
 
 <div class="signup-container">
     <h1>📝 회원가입</h1>
-    <form method="post" action="/api/users/register">
+
+    <div th:if="${param.error}" class="error-message">
+        입력값이 올바르지 않거나 이미 존재하는 계정입니다.
+    </div>
+
+    <form th:action="@{/api/users/register}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
         <label for="email">📧 이메일</label>
         <div class="input-group">
-            <input type="email" name="email" id="email" required>
+            <input type="email" name="email" id="email" required autocomplete="off">
         </div>
 
         <label for="nickname">🙋 이름</label>
         <div class="input-group">
-            <input type="text" name="nickname" id="nickname" required>
+            <input type="text" name="nickname" id="nickname" required autocomplete="off">
         </div>
 
         <label for="password">🔒 비밀번호</label>
         <div class="input-group">
-            <input type="password" name="password" id="password" required>
+            <input type="password" name="password" id="password" required autocomplete="off">
             <span class="toggle-password" onclick="togglePassword()">👁️</span>
         </div>
 
