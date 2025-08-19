@@ -138,7 +138,7 @@
         입력값이 올바르지 않거나 이미 존재하는 계정입니다.
     </div>
 
-    <form th:action="@{/api/users/register}" method="post">
+    <form th:action="@{/join}" method="post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
         <label for="email">📧 이메일</label>
