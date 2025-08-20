@@ -8,45 +8,48 @@
     <meta name="_csrf_header" th:content="${_csrf.headerName}">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gradient-to-br from-purple-700 via-indigo-600 to-blue-500 text-white min-h-screen">
 
 <!-- Header -->
-<header class="bg-indigo-600 text-white p-4 flex justify-between items-center shadow">
-    <a href="/" class="text-xl font-bold">🌀 승록사이트(메인화면) {❓익명계시판❓: 익명으로 자유롭게 글을써주세요!}</a>
-    <div class="space-x-4">
-      <span sec:authorize="isAnonymous()">
-        <a href="/login" class="hover:underline">로그인</a>
-        <a href="/join" class="hover:underline">회원가입</a>
-      </span>
+<header class="bg-opacity-30 backdrop-blur-md p-6 flex justify-between items-center shadow-lg border-b border-white/20">
+    <a href="/" class="text-2xl font-extrabold tracking-wide animate-pulse">
+        🌀 승록사이트(메인화면) <span class="text-yellow-300">❓익명계시판❓</span>
+    </a>
+    <div class="space-x-4 text-sm">
+    <span sec:authorize="isAnonymous()">
+      <a href="/login" class="hover:text-yellow-300 transition">로그인</a>
+      <a href="/join" class="hover:text-yellow-300 transition">회원가입</a>
+    </span>
         <span sec:authorize="isAuthenticated()">
-        <span>안녕하세요, <strong th:text="${displayName}">사용자</strong>님!</span>
-        <form method="post" action="/logout" class="inline">
-          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-          <button type="submit" class="ml-2 bg-white text-indigo-600 px-2 py-1 rounded hover:bg-indigo-100">로그아웃</button>
-        </form>
-      </span>
+      <span>안녕하세요, <strong th:text="${displayName}" class="text-pink-300">사용자</strong>님!</span>
+      <form method="post" action="/logout" class="inline">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <button type="submit"
+                class="ml-2 bg-white text-indigo-600 px-3 py-1 rounded-full shadow hover:bg-indigo-100 transition">로그아웃</button>
+      </form>
+    </span>
     </div>
 </header>
 
 <!-- Main Content -->
-<main class="max-w-3xl mx-auto mt-10 bg-white p-8 rounded shadow">
-    <div class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold text-indigo-700">📚 게시글 목록</h1>
+<main class="max-w-3xl mx-auto mt-12 bg-white/10 p-10 rounded-xl shadow-xl border border-white/20 backdrop-blur-md">
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold text-yellow-300 drop-shadow-lg">📚 게시글 목록</h1>
         <div sec:authorize="isAuthenticated()">
             <a href="/articles/new"
-               class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition">+ 새글 작성</a>
+               class="bg-yellow-400 text-indigo-900 font-bold px-5 py-2 rounded-full shadow-lg hover:bg-yellow-500 transition">📝 새글 작성</a>
         </div>
     </div>
 
-    <div th:if="${#lists.isEmpty(articles)}" class="text-gray-500 text-center py-6">
-        아직 글이 없습니다.
+    <div th:if="${#lists.isEmpty(articles)}" class="text-white/70 text-center py-6 italic">
+        아직 글이 없습니다. 첫 글을 남겨보세요!
     </div>
 
-    <ul th:unless="${#lists.isEmpty(articles)}" class="space-y-4">
-        <li th:each="a : ${articles}" class="border-b pb-4">
+    <ul th:unless="${#lists.isEmpty(articles)}" class="space-y-6">
+        <li th:each="a : ${articles}" class="bg-white/10 border border-white/20 rounded-lg p-4 hover:bg-white/20 transition">
             <a th:href="@{'/articles/' + ${a.id}}"
                th:text="${a.title}"
-               class="text-lg text-indigo-600 hover:underline font-medium">제목</a>
+               class="text-lg font-semibold text-yellow-200 hover:text-white transition">📄 제목</a>
         </li>
     </ul>
 </main>

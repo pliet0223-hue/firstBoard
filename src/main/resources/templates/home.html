@@ -6,46 +6,47 @@
     <title>홈</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gradient-to-br from-indigo-100 to-white min-h-screen text-gray-800">
+<body class="bg-gradient-to-br from-purple-700 via-indigo-600 to-blue-500 text-white min-h-screen">
 
 <!-- Header -->
-<header class="bg-indigo-600 text-white p-4 flex justify-between items-center shadow">
-    <a href="/" class="text-xl font-bold">🌀 승록사이트(메인화면) {❓익명계시판❓: 익명으로 자유롭게 글을써주세요!}</a>
-    <div class="space-x-4">
-      <span sec:authorize="isAnonymous()">
-        <a href="/login" class="hover:underline">로그인</a>
-        <a href="/join" class="hover:underline">회원가입</a>
-      </span>
+<header class="bg-opacity-30 backdrop-blur-md p-6 flex justify-between items-center shadow-lg border-b border-white/20">
+    <a href="/" class="text-2xl font-extrabold tracking-wide animate-pulse">
+        🌀 승록사이트(메인화면) <span class="text-yellow-300">❓익명계시판❓</span>
+    </a>
+    <div class="space-x-4 text-sm">
+    <span sec:authorize="isAnonymous()">
+      <a href="/login" class="hover:text-yellow-300 transition">로그인</a>
+      <a href="/join" class="hover:text-yellow-300 transition">회원가입</a>
+    </span>
         <span sec:authorize="isAuthenticated()">
-        <form method="post" action="/logout" class="inline">
-          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-          <button type="submit" class="bg-white text-indigo-600 px-2 py-1 rounded hover:bg-indigo-100">로그아웃</button>
-        </form>
-      </span>
+      <form method="post" action="/logout" class="inline">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <button type="submit"
+                class="bg-white text-indigo-600 px-3 py-1 rounded-full shadow hover:bg-indigo-100 transition">로그아웃</button>
+      </form>
+    </span>
     </div>
 </header>
 
 <!-- Main -->
-<main class="max-w-2xl mx-auto mt-20 text-center">
-    <h1 class="text-4xl font-bold text-indigo-700 mb-6">📌 메인 페이지</h1>
+<main class="max-w-2xl mx-auto mt-24 text-center bg-white/10 p-10 rounded-xl shadow-xl border border-white/20 backdrop-blur-md">
+    <h1 class="text-4xl font-bold text-yellow-300 mb-8 drop-shadow-lg">📌 메인 페이지</h1>
 
     <a href="/articles"
-       class="inline-block bg-indigo-500 text-white px-6 py-3 rounded shadow hover:bg-indigo-600 transition mb-4">
-        글 목록 보기
-    </a>
+       class="inline-block bg-yellow-400 text-indigo-900 font-bold px-6 py-3 rounded-full shadow-lg hover:bg-yellow-500 transition mb-6">📚 글 목록 보기</a>
 
-    <div class="mt-4">
-      <span sec:authorize="isAnonymous()" class="text-sm text-gray-600">
-        아직 로그인하지 않으셨나요?
-        <a href="/login" class="text-indigo-600 hover:underline">로그인</a> 또는
-        <a href="/join" class="text-indigo-600 hover:underline">회원가입</a> 해주세요.
-      </span>
+    <div class="mt-6">
+    <span sec:authorize="isAnonymous()" class="text-sm text-white/70">
+      아직 로그인하지 않으셨나요?
+      <a href="/login" class="text-yellow-300 hover:underline">로그인</a> 또는
+      <a href="/join" class="text-yellow-300 hover:underline">회원가입</a> 해주세요.
+    </span>
 
-        <div sec:authorize="isAuthenticated()" class="mt-2">
+        <div sec:authorize="isAuthenticated()" class="mt-4">
             <form method="post" action="/logout">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                 <button type="submit"
-                        class="text-sm text-red-600 hover:underline">로그아웃</button>
+                        class="text-sm text-red-300 hover:underline">❌ 로그아웃</button>
             </form>
         </div>
     </div>
