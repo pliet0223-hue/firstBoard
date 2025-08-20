@@ -1,48 +1,35 @@
+
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
-<head><title>홈 | NewBoard</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="_csrf" th:content="${_csrf.token}">
-    <meta name="_csrf_header" th:content="${_csrf.headerName}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>홈 | NewBoard</title>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+
 </head>
-<body class="bg-light">
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<body class="bg-white">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom mb-4">
   <div class="container">
     <a class="navbar-brand fw-bold" href="/">NewBoard</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nbNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div id="nbNav" class="collapse navbar-collapse">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" th:href="@{/articles}">게시판</a></li>
-        <li class="nav-item"><a class="nav-link" th:href="@{/login}" sec:authorize="!isAuthenticated()">로그인</a></li>
-        <li class="nav-item"><a class="nav-link" th:href="@{/logout}" sec:authorize="isAuthenticated()">로그아웃</a></li>
-      </ul>
+    <div class="collapse navbar-collapse"></div>
+    <div class="d-flex gap-2">
+      <a class="btn btn-outline-primary btn-sm" href="/articles">게시판</a>
+      <a class="btn btn-primary btn-sm" href="/login">로그인</a>
     </div>
   </div>
 </nav>
 
-<header class="bg-white border-bottom"><div class="container py-5 text-center">
-  <h1 class="display-5 fw-bold">익명 커뮤니티 NewBoard</h1>
-  <p class="lead text-secondary mb-4">로그인 없이 글을 읽고, 로그인하면 글을 작성할 수 있습니다.</p>
-  <div class="d-flex gap-2 justify-content-center">
-    <a class="btn btn-primary btn-lg" th:href="@{/articles}">게시판 보기</a>
-    <a class="btn btn-outline-secondary btn-lg" th:href="@{/articles/new}" sec:authorize="isAuthenticated()">새 게시물 작성</a>
-    <a class="btn btn-outline-primary btn-lg" th:href="@{/login}" sec:authorize="!isAuthenticated()">로그인</a>
+  <div class="container py-5 text-center">
+    <h1 class="display-5 fw-bold">익명 커뮤니티 NewBoard</h1>
+    <p class="lead text-secondary">글을 읽고, 로그인하면 글을 작성할 수 있습니다.</p>
+    <div class="d-flex gap-2 justify-content-center mt-3">
+      <a class="btn btn-primary btn-lg" href="/articles">게시판 보기</a>
+      <a class="btn btn-outline-secondary btn-lg" href="/articles/new">새 글</a>
+    </div>
   </div>
-</div></header>
-<div class="container my-5"><div class="row g-3">
-<div class="col-md-4"><div class="card h-100"><div class="card-body"><h5 class="card-title">익명성 우선</h5><p class="card-text text-secondary">작성자 표기를 제거하고, 시간 정보만 표시합니다.</p></div></div></div>
-<div class="col-md-4"><div class="card h-100"><div class="card-body"><h5 class="card-title">깔끔한 UI</h5><p class="card-text text-secondary">Bootstrap으로 모바일/데스크톱 모두 보기 좋게 구성.</p></div></div></div>
-<div class="col-md-4"><div class="card h-100"><div class="card-body"><h5 class="card-title">보안 고려</h5><p class="card-text text-secondary">CSRF 토큰과 Spring Security 흐름을 준수.</p></div></div></div>
-</div></div>
-
-<footer class="border-top py-4 mt-5">
-  <div class="container text-center text-secondary small">
-    © <span th:text="${#temporals.format(#dates.createNow(),'yyyy')}">2025</span> NewBoard — 익명 커뮤니티
-  </div>
-</footer>
-</body></html>
+</body>
+</html>
