@@ -30,6 +30,9 @@
 
     <!-- 글 작성 폼 -->
     <form method="post" action="/articles" class="space-y-8">
+        <!-- ✅ CSRF 토큰 추가 -->
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+
         <input type="hidden" id="article-id" th:value="${article} != null ? ${article.id} : ''"/>
 
         <div>

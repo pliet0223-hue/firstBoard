@@ -44,4 +44,5 @@ public class ArticleViewController {
         model.addAttribute("article", article);
         return "article-edit";
     }
+
 }
