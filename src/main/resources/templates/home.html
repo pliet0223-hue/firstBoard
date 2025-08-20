@@ -1,83 +1,48 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head><title>홈 | NewBoard</title>
     <meta charset="UTF-8">
-    <title>익명 이야기 공간</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
 </head>
-<body class="bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-800 text-white min-h-screen">
-
-<!-- 🔐 상단 네비게이션 -->
-<header class="w-full px-6 py-4 flex justify-between items-center bg-white/10 backdrop-blur-md border-b border-white/20 fixed top-0 left-0 z-50">
-    <h1 class="text-xl font-bold text-yellow-300">익명 이야기 공간</h1>
-    <div class="flex space-x-4">
-        <a href="/login"
-           class="text-sm bg-yellow-400 text-indigo-900 font-semibold px-4 py-2 rounded-full shadow hover:bg-yellow-500 transition">
-            🔐 로그인
-        </a>
-        <a href="/join"
-           class="text-sm bg-white/20 text-white font-semibold px-4 py-2 rounded-full border border-white/30 hover:bg-white/30 transition">
-            📝 회원가입
-        </a>
+<body class="bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="/">NewBoard</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nbNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="nbNav" class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" th:href="@{/articles}">게시판</a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/login}" sec:authorize="!isAuthenticated()">로그인</a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/logout}" sec:authorize="isAuthenticated()">로그아웃</a></li>
+      </ul>
     </div>
-</header>
+  </div>
+</nav>
 
-<!-- 🏠 메인 콘텐츠 -->
-<main class="max-w-3xl mx-auto pt-32 px-6">
-    <!-- 감성 문구 -->
-    <section class="text-center mb-12">
-        <h2 class="text-4xl font-extrabold text-yellow-300 drop-shadow-lg mb-4">🕶️ 익명으로, 진짜 이야기를</h2>
-        <p class="text-white/80 text-lg leading-relaxed">
-            이름 없이, 가면 없이.
-            <br>지금 당신의 생각을 털어놓을 시간입니다.
-        </p>
-        <p class="mt-4 text-sm text-white/50 italic">“말하지 못한 이야기, 여기에 남겨보세요.”</p>
-    </section>
+<header class="bg-white border-bottom"><div class="container py-5 text-center">
+  <h1 class="display-5 fw-bold">익명 커뮤니티 NewBoard</h1>
+  <p class="lead text-secondary mb-4">로그인 없이 글을 읽고, 로그인하면 글을 작성할 수 있습니다.</p>
+  <div class="d-flex gap-2 justify-content-center">
+    <a class="btn btn-primary btn-lg" th:href="@{/articles}">게시판 보기</a>
+    <a class="btn btn-outline-secondary btn-lg" th:href="@{/articles/new}" sec:authorize="isAuthenticated()">새 게시물 작성</a>
+    <a class="btn btn-outline-primary btn-lg" th:href="@{/login}" sec:authorize="!isAuthenticated()">로그인</a>
+  </div>
+</div></header>
+<div class="container my-5"><div class="row g-3">
+<div class="col-md-4"><div class="card h-100"><div class="card-body"><h5 class="card-title">익명성 우선</h5><p class="card-text text-secondary">작성자 표기를 제거하고, 시간 정보만 표시합니다.</p></div></div></div>
+<div class="col-md-4"><div class="card h-100"><div class="card-body"><h5 class="card-title">깔끔한 UI</h5><p class="card-text text-secondary">Bootstrap으로 모바일/데스크톱 모두 보기 좋게 구성.</p></div></div></div>
+<div class="col-md-4"><div class="card h-100"><div class="card-body"><h5 class="card-title">보안 고려</h5><p class="card-text text-secondary">CSRF 토큰과 Spring Security 흐름을 준수.</p></div></div></div>
+</div></div>
 
-    <!-- ✍️ 로그인/회원가입 후 글쓰기 유도 버튼 -->
-    <div class="flex flex-col items-center space-y-4 mb-16">
-        <a href="/login"
-           class="inline-block bg-yellow-400 text-indigo-900 font-bold px-6 py-3 rounded-full shadow-lg hover:bg-yellow-500 transition">
-            ✍️ 지금 바로 로그인하고 작성하기
-        </a>
-        <a href="/join"
-           class="inline-block bg-white/20 text-white font-bold px-6 py-3 rounded-full border border-white/30 shadow-lg hover:bg-white/30 transition">
-            📝 지금 바로 회원가입하고 작성하기
-        </a>
-    </div>
-
-    <!-- 🔥 인기 글 예시 미리보기 -->
-    <section class="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-white/20 shadow-lg">
-        <h3 class="text-xl font-bold text-yellow-300 mb-4">🔥 지금 인기 있는 이야기</h3>
-        <ul class="space-y-4">
-            <li>
-                <div class="block bg-white/5 p-4 rounded-lg border border-white/10">
-                    <h4 class="font-semibold text-white">익명으로 털어놓은 오늘의 이야기</h4>
-                    <p class="text-sm text-white/70 mt-1">진짜 하고 싶었던 말, 여기서 꺼내봤어요...</p>
-                </div>
-            </li>
-            <li>
-                <div class="block bg-white/5 p-4 rounded-lg border border-white/10">
-                    <h4 class="font-semibold text-white">누구에게도 말 못했던 고민</h4>
-                    <p class="text-sm text-white/70 mt-1">밤마다 생각나는 그 말, 이제는 꺼내볼게요.</p>
-                </div>
-            </li>
-            <li>
-                <div class="block bg-white/5 p-4 rounded-lg border border-white/10">
-                    <h4 class="font-semibold text-white">익명이라서 할 수 있는 이야기</h4>
-                    <p class="text-sm text-white/70 mt-1">이름 없이 남기는 진심, 여기에 담아봅니다.</p>
-                </div>
-            </li>
-        </ul>
-        <p class="text-white/60 text-sm mt-4 italic">※ 위 글들은 예시입니다. 로그인 후 실제 글을 확인할 수 있어요.</p>
-    </section>
-
-    <!-- 📋 전체 글 보기 안내 -->
-    <div class="mt-12 text-center text-sm text-white/50">
-        <p>전체 글은 로그인 후 확인 가능합니다 🔐</p>
-    </div>
-</main>
-
-<script src="/js/article.js" defer></script>
-</body>
-</html>
+<footer class="border-top py-4 mt-5">
+  <div class="container text-center text-secondary small">
+    © <span th:text="${#temporals.format(#dates.createNow(),'yyyy')}">2025</span> NewBoard — 익명 커뮤니티
+  </div>
+</footer>
+</body></html>

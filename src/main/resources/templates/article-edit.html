@@ -1,55 +1,44 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>글 수정</title>
-    <meta name="_csrf" th:content="${_csrf.token}">
-    <meta name="_csrf_header" th:content="${_csrf.headerName}">
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="_csrf" th:content="${_csrf.token}">
+  <meta name="_csrf_header" th:content="${_csrf.headerName}">
+  <title>게시물 수정 | NewBoard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
 </head>
-<body class="bg-gradient-to-br from-purple-700 via-indigo-600 to-blue-500 text-white min-h-screen">
-
-<main class="max-w-2xl mx-auto mt-16 bg-white/10 p-10 rounded-xl shadow-xl border border-white/20 backdrop-blur-md">
-    <h1 class="text-3xl font-bold mb-8 text-yellow-300 drop-shadow-lg">✏️ 글 수정</h1>
-
-    <!-- 수정 안내 -->
-    <div class="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-white/20 text-white shadow-lg mb-10">
-        <h2 class="text-xl font-bold text-yellow-300 mb-4">🛠️ 수정 시 꼭 확인해주세요</h2>
-        <ul class="list-disc pl-5 space-y-2 text-sm">
-            <li>⚠️ 오해를 불러일으킬 수 있는 표현은 피해주세요</li>
-            <li>⚠️ 기존 댓글과 충돌되는 내용은 신중하게 수정해주세요</li>
-            <li>⚠️ 타인의 글을 무단으로 인용하거나 복사하지 마세요</li>
-            <li>✅ 수정은 더 나은 소통을 위한 과정입니다. 책임감을 가지고 작성해주세요 🙏</li>
-        </ul>
-        <p class="mt-4 text-xs text-white/70 italic">※ 수정된 내용은 즉시 반영되며, 기록이 남을 수 있습니다.</p>
+<body class="bg-light">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="/">NewBoard</a>
     </div>
-
-    <!-- 글 수정 폼 -->
-    <form th:action="@{'/articles/' + ${article.id}}" method="post" th:object="${article}" class="space-y-8">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-
-        <div>
-            <label for="title" class="block text-sm font-semibold text-white mb-2">제목</label>
-            <input type="text" id="title" th:field="*{title}" required
-                   class="w-full bg-white/20 text-white placeholder-white/70 border border-white/30 rounded px-4 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:bg-white/30 transition">
+  </nav>
+  <div class="container my-4">
+    <h2 class="mb-3">게시물 수정</h2>
+    <form th:action="@{/articles}" th:object="${article}" method="post" class="card shadow-sm">
+      <div class="card-body">
+        <div class="mb-3">
+          <label class="form-label">제목</label>
+          <input type="text" th:field="*{title}" class="form-control" required maxlength="200">
         </div>
-
-        <div>
-            <label for="content" class="block text-sm font-semibold text-white mb-2">내용</label>
-            <textarea id="content" th:field="*{content}" rows="8" required
-                      class="w-full bg-white/20 text-white placeholder-white/70 border border-white/30 rounded px-4 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:bg-white/30 transition"></textarea>
+        <div class="mb-3">
+          <label class="form-label">내용</label>
+          <textarea th:field="*{content}" class="form-control" rows="10" required></textarea>
         </div>
-
-        <div class="flex space-x-4 justify-end">
-            <button type="submit" id="modify-btn"
-                    class="bg-yellow-400 text-indigo-900 font-bold px-5 py-2 rounded-full shadow-lg hover:bg-yellow-500 transition">💾 저장</button>
-            <a th:href="@{'/articles/' + ${article.id}}"
-               class="px-5 py-2 border border-white/30 rounded-full text-white hover:bg-white/20 transition">❌ 취소</a>
-            <a href="/articles"
-               class="px-5 py-2 border border-white/30 rounded-full text-white hover:bg-white/20 transition">📋 목록</a>
-        </div>
+      </div>
+      <div class="card-footer bg-white d-flex gap-2">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <button type="submit" class="btn btn-primary">저장</button>
+        <a th:href="@{'/articles/' + ${article.id}}" class="btn btn-secondary">취소</a>
+      </div>
     </form>
-</main>
-
+  </div>
+  <footer class="border-top py-4 mt-5">
+    <div class="container text-center text-secondary small">
+      © <span th:text="${#temporals.format(#dates.createNow(),'yyyy')}">2025</span> NewBoard — 익명 커뮤니티
+    </div>
+  </footer>
 </body>
 </html>
