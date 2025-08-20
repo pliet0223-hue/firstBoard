@@ -11,14 +11,28 @@
 <!-- Header -->
 <header class="bg-opacity-30 backdrop-blur-md p-6 flex justify-between items-center shadow-lg border-b border-white/20">
     <a href="/" class="text-2xl font-extrabold tracking-wide animate-pulse">
-        🌀 익명제보 <span class="text-yellow-300">༼ つ ◕_◕ ༽つ홈 화면(글 목록)</span>
+        🌀 익명제보 <span class="text-yellow-300">༼ つ ◕_◕ ༽つ 홈 화면</span>
     </a>
 </header>
 
 <!-- Main -->
 <main class="max-w-md mx-auto mt-16 bg-white/10 p-10 rounded-xl shadow-xl border border-white/20 backdrop-blur-md">
+
     <h1 class="text-3xl font-bold text-yellow-300 mb-8 text-center drop-shadow-lg">🔐 로그인</h1>
 
+    <!-- 🚨 주의사항 박스 -->
+    <div class="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-red-300 shadow-lg mb-10">
+        <h2 class="text-xl font-bold text-red-300 mb-4">🚨 커뮤니티 이용 시 주의사항</h2>
+        <ul class="list-disc pl-5 space-y-2 text-sm text-white/80">
+            <li>익명이라도 타인을 비방하거나 혐오 표현을 사용하면 제재될 수 있습니다.</li>
+            <li>허위 정보, 선동성 글, 욕설은 절대 금지입니다.</li>
+            <li>모든 글은 기록에 남을 수 있으며, 책임 있는 표현을 부탁드립니다.</li>
+            <li>건강한 커뮤니티를 위해 서로를 존중해주세요 🙏</li>
+        </ul>
+        <p class="mt-4 text-xs text-white/60 italic">※ 로그인 후 작성된 글은 운영정책에 따라 관리됩니다.</p>
+    </div>
+
+    <!-- 로그인 폼 -->
     <form method="post" action="/login" class="space-y-6">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 
@@ -38,6 +52,7 @@
                 class="w-full bg-yellow-400 text-indigo-900 font-bold px-5 py-2 rounded-full shadow-lg hover:bg-yellow-500 transition">🚪 로그인</button>
     </form>
 
+    <!-- 소셜 로그인 -->
     <div class="mt-6 text-center">
         <a href="/oauth2/authorization/google"
            class="inline-block bg-red-500 text-white px-5 py-2 rounded-full shadow-lg hover:bg-red-600 transition">🔗 구글로 로그인</a>

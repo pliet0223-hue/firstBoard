@@ -13,6 +13,19 @@
 <main class="max-w-2xl mx-auto mt-16 bg-white/10 p-10 rounded-xl shadow-xl border border-white/20 backdrop-blur-md">
     <h1 class="text-3xl font-bold mb-8 text-yellow-300 drop-shadow-lg">✏️ 글 수정</h1>
 
+    <!-- 🛠️ 글 수정 시 주의사항 -->
+    <div class="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-white/20 text-white shadow-lg mb-10">
+        <h2 class="text-xl font-bold text-yellow-300 mb-4">🛠️ 수정 시 꼭 확인해주세요</h2>
+        <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li>⚠️ <strong>수정 후 내용이 오해를 불러일으킬 수 있는 표현</strong>은 피해주세요</li>
+            <li>⚠️ <strong>기존 댓글과 충돌되는 내용</strong>은 신중하게 수정해주세요</li>
+            <li>⚠️ <strong>타인의 글을 무단으로 인용하거나 복사</strong>하지 마세요</li>
+            <li>✅ <strong>수정은 더 나은 소통을 위한 과정</strong>입니다. 책임감을 가지고 작성해주세요 🙏</li>
+        </ul>
+        <p class="mt-4 text-xs text-white/70 italic">※ 수정된 내용은 즉시 반영되며, 기록이 남을 수 있습니다.</p>
+    </div>
+
+    <!-- 글 수정 폼 -->
     <form th:action="@{'/articles/' + ${article.id} + '/edit'}" method="post" class="space-y-8">
         <input type="hidden" id="article-id" th:value="${article} != null ? ${article.id} : ''"/>
 
@@ -29,7 +42,7 @@
         </div>
 
         <div class="flex space-x-4 justify-end">
-            <button type="button" id="modify-btn"
+            <button type="submit" id="modify-btn"
                     class="bg-yellow-400 text-indigo-900 font-bold px-5 py-2 rounded-full shadow-lg hover:bg-yellow-500 transition">💾 저장</button>
             <a th:href="@{'/articles/' + ${article.id}}"
                class="px-5 py-2 border border-white/30 rounded-full text-white hover:bg-white/20 transition">❌ 취소</a>
