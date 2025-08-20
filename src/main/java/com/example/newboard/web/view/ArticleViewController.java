@@ -33,7 +33,11 @@ public class ArticleViewController {
         model.addAttribute("isOwner", isOwner);
         return "article-detail";
     }
-
+    @PostMapping("/articles")
+    public String createArticle(ArticleCreateRequest request, Authentication auth) {
+        articleService.create(request, auth.getName()); // 작성자 이메일로 저장
+        return "redirect:/articles"; // 저장 후 목록 페이지로 이동
+    }
     @GetMapping("/articles/{id}/edit")
     public String editForm(@PathVariable Long id, Model model){
         var article = articleService.findById(id);
