@@ -1,6 +1,5 @@
 package com.example.newboard.service.security;
 
-import com.example.newboard.domain.User;
 import com.example.newboard.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
@@ -11,6 +10,7 @@ import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.example.newboard.domain.User;
 
 import java.util.HashSet;
 
