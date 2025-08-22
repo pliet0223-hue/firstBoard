@@ -15,4 +15,5 @@ spring:
             scope: openid, profile, email
 
 server:
-  port: ${PORT:8080}
+  port: ${PORT:8080}                 # Render에서 주는 PORT 사용
+  forward-headers-strategy: framework
